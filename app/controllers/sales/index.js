@@ -53,19 +53,11 @@ const update = async (id, body) => {
 
 const create = async (body) => {
   try {
-    console.log("Body:", body);
-    console.log("Customer email:", body.customer.email);
     let sum = 0;
-    let productArr = [];
-    let productsData = [];
 
     for (var i = 0; i < body.items.length; i++) {
       sum = sum + Number(body.items[i].price);
     }
-
-    productsData.push({ body });
-
-    console.log("Product Data: ", productsData);
 
     let data = {
       email: body.customer.email,
@@ -75,13 +67,12 @@ const create = async (body) => {
 
     console.log("Sales data:", data);
 
-    // const sale = await Sale.create({ ...data, email: data.email });
     const sale = await Sale.create(data);
 
     sns
       .publish({
         Message: JSON.stringify({
-          productsData,
+          body,
         }),
         Subject: "Order created",
         TopicArn: snsTopics.orderCreated,
