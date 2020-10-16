@@ -67,6 +67,13 @@ const create = async (body) => {
 
     console.log("Sales data:", data);
 
+    body = {
+      ...body,
+      method: "sale",
+    };
+    console.log("Body: ", body);
+    //sqs
+
     const sale = await Sale.create(data);
 
     sns
@@ -80,7 +87,6 @@ const create = async (body) => {
       .promise()
       .then((r) => console.log(r));
 
-    //sqs
     sqs
       .sendMessage({
         MessageBody: JSON.stringify({
