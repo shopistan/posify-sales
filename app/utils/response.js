@@ -34,6 +34,7 @@ module.exports = (data, statusCode = 200, message = null) => {
   return {
     statusCode,
     body: JSON.stringify({ ...result, data }),
+
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
