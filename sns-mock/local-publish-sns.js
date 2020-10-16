@@ -8,10 +8,10 @@ const sns = SNS({
 sns
   .publish({
     Message: JSON.stringify({
-      name: 'KHIZER',
+      name: 'Order updated',
     }),
-    Subject: 'ProductCreate',
-    TopicArn: snsTopics.createProduct,
+    Subject: 'Order updated',
+    TopicArn: snsTopics.orderUpdated,
   })
   .promise()
   .then((r) => console.log(r));

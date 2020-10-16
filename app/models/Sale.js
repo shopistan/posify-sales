@@ -1,18 +1,19 @@
-const mongoose = require('mongoose');
-const ExportModel = require('../utils/mongoose-model-export');
+const mongoose = require("mongoose");
+const ExportModel = require("../utils/mongoose-model-export");
 
 const schema = new mongoose.Schema(
   {
-    // key: { type: String, required: true },
-    // value: { type: String, required: true },
-    customerId: String,
-    items: [{
-      productId: String,
-      productQuantity: Number,
-      productPrice: Number
-    }],
-    total: Number
-
+    email: {
+      type: String,
+    },
+    items: [
+      {
+        sku: String,
+        quantity: Number,
+        price: Number,
+      },
+    ],
+    total: Number,
   },
   {
     timestamps: true,
@@ -20,4 +21,4 @@ const schema = new mongoose.Schema(
   }
 );
 
-module.exports = ExportModel(mongoose, 'Sale', schema);
+module.exports = ExportModel(mongoose, "Sale", schema);

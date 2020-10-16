@@ -13,8 +13,11 @@ provider:
     - Effect: "Allow"
       Action:
         - "sns:Publish"
+        - "sqs:SendMessage"
       Resource:
         - ${env:snsProductCreatedTopic}
+        - ${env:snsOrderCreatedTopic}
+        - ${env:sqsposifyEmailQueueTopic}
 
 plugins:
   - serverless-webpack
@@ -57,26 +60,12 @@ custom:
     snsProductCreatedTopic: ${env:snsProductCreatedTopic}
 
 functions:
-  count:
-    handler: handler.count
-    events:
-      - http:
-          path: products/count
-          method: get
-  all:
-    handler: handler.all
-    events:
-      - http:
-          path: products/
-          method: get
-  create:
-    handler: handler.create
-    events:
-      - sns:
-          arn: ${env:snsProductCreatedTopic}
-      - http:
-          path: products/create
-          method: post
+  # count:
+  #   handler: handler.count
+  #   events:
+  #     - http:
+  #         path: products/count
+  #         method: get
 
   createOrder:
     handler: sales-handler.createOrder
@@ -84,6 +73,11 @@ functions:
       - http:
           path: sales/
           method: post
+
+  orderCreatedListener:
+    handler: sales-handler.orderCreatedListener
+    events:
+      - sns: ${env:snsOrderCreatedTopic}
 
   allOrders:
     handler: sales-handler.allOrders
@@ -98,12 +92,14 @@ functions:
       - http:
           path: sales/{id}
           method: get
+
   update:
     handler: sales-handler.update
     events:
       - http:
           path: sales/{id}
           method: put
+      - sns: orderUpdated
 
   deleteById:
     handler: sales-handler.deleteById
@@ -111,3 +107,4 @@ functions:
       - http:
           path: sales/{id}
           method: delete
+      - sns: orderDeleted

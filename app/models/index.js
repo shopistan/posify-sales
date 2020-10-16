@@ -1,2 +1,1 @@
-exports.Product = require('./Product');
-exports.Sale = require('./Sale')
+exports.Sale = require("./Sale");

@@ -1,4 +1,4 @@
-const HttpStatus = require('http-status-codes');
+const HttpStatus = require("http-status-codes");
 
 const generateMessage = (code) => {
   let message = commonMessages.hasOwnProperty(code)
@@ -8,14 +8,14 @@ const generateMessage = (code) => {
 };
 
 const commonMessages = {
-  200: 'Request processed successfully.',
-  201: 'New entry has been created.',
-  400: 'The request by the client was not processed, as the server could not understand what the client is asking for.',
-  401: 'The client is not allowed to access resources, and should re-request with the required credentials.',
-  403: 'The client is not allowed access the resource.',
-  404: 'The requested resource is not available.',
-  500: 'Request can not be processed due to unexpected internal server error.',
-  503: 'Server is down or unavailable to receive and process the request',
+  200: "Request processed successfully.",
+  201: "New entry has been created.",
+  400: "The request by the client was not processed, as the server could not understand what the client is asking for.",
+  401: "The client is not allowed to access resources, and should re-request with the required credentials.",
+  403: "The client is not allowed access the resource.",
+  404: "The requested resource is not available.",
+  500: "Request can not be processed due to unexpected internal server error.",
+  503: "Server is down or unavailable to receive and process the request",
 };
 
 module.exports = (data, statusCode = 200, message = null) => {
@@ -25,7 +25,7 @@ module.exports = (data, statusCode = 200, message = null) => {
     message !== null ? message : responseMsg ? responseMsg : statusCodeText;
   let result = {
     success: false,
-    responseStatus: statusCodeText.toUpperCase().split(' ').join('_'),
+    responseStatus: statusCodeText.toUpperCase().split(" ").join("_"),
     message: message,
   };
   if (statusCode >= 200 && statusCode < 400) {
@@ -34,5 +34,8 @@ module.exports = (data, statusCode = 200, message = null) => {
   return {
     statusCode,
     body: JSON.stringify({ ...result, data }),
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
   };
 };

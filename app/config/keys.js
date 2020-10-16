@@ -13,5 +13,15 @@ module.exports = {
     productCreated:
       process.env.snsProductCreatedTopic ||
       'arn:aws:sns:us-east-1:403302655770:productCreated',
+      orderUpdated:
+      process.env.snsorderUpdated ||
+      'arn:aws:sns:us-east-1:403302655770:orderUpdated',
+      orderDeleted:
+      process.env.snsorderDeleted ||
+      'arn:aws:sns:us-east-1:403302655770:orderDeleted',
+      orderCreated:
+      process.env.snsOrderCreatedTopic ||
+      'arn:aws:sns:us-east-1:403302655770:orderCreated',
+
   },
 };
