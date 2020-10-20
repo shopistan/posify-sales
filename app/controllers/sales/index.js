@@ -54,7 +54,6 @@ const update = async (id, body) => {
 const create = async (body) => {
   try {
     let sum = 0;
-
     for (var i = 0; i < body.items.length; i++) {
       sum = sum + Number(body.items[i].price);
     }
@@ -72,7 +71,6 @@ const create = async (body) => {
       method: "sale",
     };
     console.log("Body: ", body);
-    //sqs
 
     const sale = await Sale.create(data);
 

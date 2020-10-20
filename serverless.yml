@@ -60,13 +60,6 @@ custom:
     snsProductCreatedTopic: ${env:snsProductCreatedTopic}
 
 functions:
-  # count:
-  #   handler: handler.count
-  #   events:
-  #     - http:
-  #         path: products/count
-  #         method: get
-
   createOrder:
     handler: sales-handler.createOrder
     events:
