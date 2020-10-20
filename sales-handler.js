@@ -3,6 +3,7 @@ require("./app/config/db");
 const send = require("./app/utils/response");
 const SalesController = require("./app/controllers/sales");
 const { formatBody } = require("./app/utils/helpers");
+const { createConnection } = require("./app/config/db");
 
 const SNS = require("./app/utils/sns");
 const { snsTopics } = require("./app/config/keys");
@@ -12,6 +13,7 @@ const sns = SNS({
 });
 
 const createSaleOrder = async (event, context) => {
+  createConnection();
   let response = await SalesController.create(JSON.parse(event.body));
   return send(response);
 };
@@ -22,11 +24,13 @@ const orderCreatedSns = async (event, context) => {
 };
 
 const getAllOrders = async (event, context) => {
+  createConnection();
   let response = await SalesController.all();
   return send(response);
 };
 
 const getOrderById = async (event, context) => {
+  createConnection();
   let id = event.pathParameters.id;
   console.log(id);
   let response = await SalesController.findById(id);
@@ -34,6 +38,7 @@ const getOrderById = async (event, context) => {
 };
 
 const updateOrder = async (event, context) => {
+  createConnection();
   let response = await SalesController.update(
     event.pathParameters.id,
     JSON.parse(event.body)
@@ -42,6 +47,7 @@ const updateOrder = async (event, context) => {
 };
 
 const deleteOrder = async (event, context) => {
+  createConnection();
   let id = event.pathParameters.id;
   console.log(id);
   let response = await SalesController.remove(id);

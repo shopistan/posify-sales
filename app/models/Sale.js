@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const ExportModel = require("../utils/mongoose-model-export");
+const { Model } = require("../config/db");
 
 const schema = new mongoose.Schema(
   {
@@ -21,4 +21,4 @@ const schema = new mongoose.Schema(
   }
 );
 
-module.exports = ExportModel(mongoose, "Sale", schema);
+module.exports = Model("Sale", schema);
